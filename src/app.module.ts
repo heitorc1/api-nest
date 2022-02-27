@@ -1,13 +1,11 @@
-import { User } from 'src/users/entities/user.entity';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Connection, getConnectionOptions } from 'typeorm';
+import { Connection } from 'typeorm';
 import { PostsModule } from './posts/posts.module';
-import { Post } from './posts/entities/post.entity';
 
 @Module({
   imports: [
@@ -19,10 +17,10 @@ import { Post } from './posts/entities/post.entity';
       username: 'postgres',
       password: 'hdx3040b',
       database: 'apinest',
-      entities: [User, Post],
       migrations: ['dist/migration/*.js'],
       synchronize: true,
       keepConnectionAlive: true,
+      autoLoadEntities: true,
       cli: {
         migrationsDir: 'src/migration',
       },
