@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  api:
+    build: .
+    container_name: api
+    restart: always
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: $DATABASE_PORT
+      DATABASE_USERNAME: $DATABASE_USERNAME
+      DATABASE_PASSWORD: $DATABASE_PASSWORD
+      DATABASE_NAME: $DATABASE_NAME
+    volumes:
+      - .:/usr/app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:14.2-alpine
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+      POSTGRES_DB: $DATABASE_NAME
+    ports:
+      - '15432:5432'
+    volumes:
+      - ./psdata:/var/lib/postgresql/data

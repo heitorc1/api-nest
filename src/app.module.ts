@@ -6,17 +6,18 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { PostsModule } from './posts/posts.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    UsersModule,
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'hdx3040b',
-      database: 'apinest',
+      host: process.env.DATABASE_HOST,
+      port: parseInt(process.env.DATABASE_PORT),
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
       migrations: ['dist/migration/*.js'],
       synchronize: true,
       keepConnectionAlive: true,
@@ -25,6 +26,7 @@ import { PostsModule } from './posts/posts.module';
         migrationsDir: 'src/migration',
       },
     }),
+    UsersModule,
     PostsModule,
   ],
   controllers: [AppController],
