@@ -1,5 +1,9 @@
 version: '3.9'
 
+networks:
+  development:
+    driver: bridge
+
 services:
   api:
     build: .
@@ -15,8 +19,11 @@ services:
       - .:/usr/app
     ports:
       - '3000:3000'
+    networks:
+      - development
     depends_on:
       - postgres
+      - redis
 
   postgres:
     image: postgres:14.2-alpine
@@ -29,3 +36,13 @@ services:
       - '15432:5432'
     volumes:
       - ./psdata:/var/lib/postgresql/data
+    networks:
+      - development
+
+  redis:
+    image: redis:6.2.6-alpine
+    container_name: redis
+    volumes:
+      - './redis:/data'
+    networks:
+      - development

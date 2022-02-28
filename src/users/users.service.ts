@@ -13,7 +13,7 @@ export class UsersService {
 
   private readonly logger = new Logger(UsersService.name);
 
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
     this.logger.log(`create ${createUserDto.name} user service`);
     return this.userRepository.save(createUserDto);
   }
