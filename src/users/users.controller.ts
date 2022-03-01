@@ -21,19 +21,20 @@ export class UsersController {
     await this.userQueue.add('create', {
       user: createUserDto,
     });
-    return 'user created';
+
+    return { message: 'User sucessfully created' };
   }
 
   @Get()
   async findAll() {
     await this.userQueue.add('getAll');
-    return 'list returned';
+    return { message: 'List returned' };
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
     await this.userQueue.add('getOne', { id });
-    return 'user returned';
+    return { message: 'User returned' };
   }
 
   @Patch(':id')
@@ -42,12 +43,12 @@ export class UsersController {
       id,
       user: updateUserDto,
     });
-    return 'user updated';
+    return { message: 'User updated' };
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
     await this.userQueue.add('delete', { id });
-    return 'user deleted';
+    return { message: 'User deleted' };
   }
 }

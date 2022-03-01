@@ -1,5 +1,6 @@
 .env
 /psdata
+/redis
 
 # compiled output
 /dist

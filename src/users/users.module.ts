@@ -4,7 +4,7 @@ import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { User } from './entities/user.entity';
 import { BullModule } from '@nestjs/bull';
-import { UserProcessor } from './user.processor';
+import { UserConsumer } from './user.consumer';
 
 @Module({
   imports: [
@@ -13,7 +13,7 @@ import { UserProcessor } from './user.processor';
       name: 'user',
     }),
   ],
-  providers: [UsersService, UserProcessor],
+  providers: [UsersService, UserConsumer],
   controllers: [UsersController],
 })
 export class UsersModule {}
